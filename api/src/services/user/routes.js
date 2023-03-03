@@ -3,6 +3,14 @@ const userController = require("./controller");
 const { verifyToken } = require("../../middlewares/verifyToken");
 const refreshToken = require("../../middlewares/refreshToken");
 const { inputValidation } = require("./validation");
+const rateLimit = require("express-rate_limit");
+
+const limiter = rateLimit({
+  // 60 * 1000 is oneMinute
+  windowMs: 5 * 60 * 1000,
+  max: 5,
+  message: "Too many failed login attempts",
+});
 
 const router = express.Router();
 
@@ -14,7 +22,7 @@ router.post(
   inputValidation,
   userController.register
 );
-router.post("/users/login", userController.login);
+router.post("/users/login", limiter, userController.login);
 router.get("/users/token", refreshToken);
 router.delete("/users/logout", verifyToken, userController.logout);
 
