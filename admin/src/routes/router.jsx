@@ -1,6 +1,15 @@
 import { createBrowserRouter } from "react-router-dom";
 
-import { Layout, Login, Home, Clients } from "../views";
+import {
+  Layout,
+  Login,
+  Home,
+  Clients,
+  Staff,
+  Members,
+  Loan,
+  Settings,
+} from "../views";
 
 const router = createBrowserRouter([
   {
@@ -14,6 +23,22 @@ const router = createBrowserRouter([
       {
         path: "/clients",
         element: <Clients />,
+      },
+      {
+        path: "/staff",
+        element: <Staff />,
+      },
+      {
+        path: "/members",
+        element: <Members />,
+      },
+      {
+        path: "/loan",
+        element: <Loan />,
+      },
+      {
+        path: "/settings",
+        element: <Settings />,
       },
     ],
   },

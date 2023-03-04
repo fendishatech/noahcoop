@@ -14,24 +14,45 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { tokens } from "../../../context/themeContext";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
-import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
-import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
-import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
-import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
-import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
-import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
-import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 
-const Sidebar = () => {
+import HomeIcon from "@mui/icons-material/Home";
+import PersonIcon from "@mui/icons-material/Person";
+import PeopleIcon from "@mui/icons-material/People";
+import SupervisedUserCircleIcon from "@mui/icons-material/SupervisedUserCircle";
+import SettingsIcon from "@mui/icons-material/Settings";
+import SavingsIcon from "@mui/icons-material/Savings";
+
+import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+
+const Sidebar = ({ open, setOpen }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
+
+  const linkItems = [
+    {
+      title: "ደምበኛ",
+      linkTo: "/clients",
+      icon: <PersonIcon />,
+    },
+    {
+      title: "ስታፍ",
+      linkTo: "/staff",
+      icon: <PeopleIcon />,
+    },
+    {
+      title: "አባላት",
+      linkTo: "/members",
+      icon: <SupervisedUserCircleIcon />,
+    },
+    {
+      title: "የብድር አገልግሎት",
+      linkTo: "/loan",
+      icon: <SavingsIcon />,
+    },
+  ];
+
   return (
     <Box
       sx={{
@@ -47,72 +68,71 @@ const Sidebar = () => {
             ADMIN
           </Typography>
         )}
-        <IconButton>
-          <MenuOutlinedIcon
-            sx={{ fontSize: 36 }}
-            onClick={() => setIsCollapsed(!isCollapsed)}
-          />
+        <IconButton
+          onClick={() => {
+            setIsCollapsed(!isCollapsed);
+            setOpen(!open);
+          }}
+        >
+          <MenuOutlinedIcon sx={{ fontSize: 36 }} />
         </IconButton>
       </Box>
       <Divider />
-      <List>
-        <ListItem key={"Clients"} disablePadding>
+      <Link to={"/"} style={{ color: "inherit", textDecoration: "none" }}>
+        <ListItem key={"dashboard"} disablePadding>
           <ListItemButton>
             <ListItemIcon>
-              <PersonOutlinedIcon />
+              <HomeIcon />
             </ListItemIcon>
-            {!isCollapsed && <ListItemText primary={"Clients"} />}
+            {!isCollapsed && <ListItemText primary={"ዳሽቦርድ"} />}
           </ListItemButton>
         </ListItem>
-      </List>
+      </Link>
+
       <Divider />
+
       <List>
-        {["Users", "Clients", "Members", "Loan"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? (
-                  <PersonOutlinedIcon />
-                ) : (
-                  <MenuOutlinedIcon />
-                )}
-              </ListItemIcon>
-              {!isCollapsed && <ListItemText primary={text} />}
-            </ListItemButton>
-          </ListItem>
+        {linkItems.map((item, index) => (
+          <Item
+            isCollapsed={isCollapsed}
+            key={index}
+            title={item.title}
+            linkTo={item.linkTo}
+            icon={item.icon}
+          />
         ))}
       </List>
+
       <Divider />
-      <List>
-        <ListItem key={"Settings"} disablePadding>
+
+      <Link
+        to={"/settings"}
+        style={{ color: "inherit", textDecoration: "none" }}
+      >
+        <ListItem key={"settings"} disablePadding>
           <ListItemButton>
             <ListItemIcon>
-              <PersonOutlinedIcon />
+              <SettingsIcon />
             </ListItemIcon>
-            {!isCollapsed && <ListItemText primary={"Settings"} />}
+            {!isCollapsed && <ListItemText primary={"ሴቲንግስ"} />}
           </ListItemButton>
         </ListItem>
-      </List>
+      </Link>
     </Box>
   );
 };
 
 export default Sidebar;
 
-const Item = ({ title, to, icon, selected, setSelected }) => {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
+const Item = ({ title, linkTo, icon, isCollapsed }) => {
   return (
-    <MenuItem
-      active={selected === title}
-      style={{
-        color: colors.grey[100],
-      }}
-      onClick={() => setSelected(title)}
-      icon={icon}
-    >
-      <Typography>{title}</Typography>
-      <Link to={to} />
-    </MenuItem>
+    <Link to={linkTo} style={{ color: "inherit", textDecoration: "none" }}>
+      <ListItem disablePadding>
+        <ListItemButton>
+          <ListItemIcon>{icon}</ListItemIcon>
+          {!isCollapsed && <ListItemText primary={title} />}
+        </ListItemButton>
+      </ListItem>
+    </Link>
   );
 };

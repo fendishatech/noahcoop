@@ -36,3 +36,14 @@ body,
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+/* LAYOUT CSS */
+
+.open-margin {
+  margin-left: 60px !important;
+}
+
+.collapsed-margin {
+  margin-left: 200px;
+}
+
