@@ -3,7 +3,7 @@ const userController = require("./controller");
 const { verifyToken } = require("../../middlewares/verifyToken");
 const refreshToken = require("../../middlewares/refreshToken");
 const { inputValidation } = require("./validation");
-const rateLimit = require("express-rate_limit");
+const rateLimit = require("express-rate-limit");
 
 const limiter = rateLimit({
   // 60 * 1000 is oneMinute
@@ -18,7 +18,7 @@ router.get("/users", verifyToken, userController.getUsers);
 
 router.post(
   "/users/register",
-  verifyToken,
+  // verifyToken,
   inputValidation,
   userController.register
 );
