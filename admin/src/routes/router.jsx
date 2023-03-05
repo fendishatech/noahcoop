@@ -9,6 +9,8 @@ import {
   Members,
   Loan,
   Settings,
+  NotFound,
+  NewClient,
 } from "../views";
 
 const router = createBrowserRouter([
@@ -23,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: "/clients",
         element: <Clients />,
+      },
+      {
+        path: "/new_client",
+        element: <NewClient />,
       },
       {
         path: "/staff",
