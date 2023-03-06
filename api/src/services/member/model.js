@@ -3,28 +3,75 @@ const db = require("../../helper/database");
 
 const { DataTypes } = Sequelize;
 
-const Users = db.define(
-  "users",
+const Members = db.define(
+  "members",
   {
     first_name: {
+      type: DataTypes.STRING,
+    },
+    middle_name: {
       type: DataTypes.STRING,
     },
     last_name: {
       type: DataTypes.STRING,
     },
-    email: {
+    title: {
+      type: DataTypes.STRING,
+      nullable: true,
+    },
+    gender: {
+      type: DataTypes.ENUM("male", "female"),
+      nullable: true,
+    },
+    dob: {
+      type: DataTypes.DATE,
+      nullable: true,
+    },
+    martial_status: {
+      type: DataTypes.ENUM("married", "single", "divorced", "widow"),
+      nullable: true,
+    },
+    family_members_no: {
+      type: DataTypes.INTEGER,
+      nullable: true,
+    },
+    family_members_gender: {
+      type: DataTypes.STRING,
+      nullable: true,
+    },
+    edu_status: {
+      type: DataTypes.ENUM(
+        "elementary",
+        "primary",
+        "secondary",
+        "college",
+        "degree",
+        "masters",
+        "phd",
+        "professor"
+      ),
+      nullable: true,
+    },
+    job_title: {
       type: DataTypes.STRING,
       unique: true,
+    },
+    job_experience: {
+      type: DataTypes.STRING,
+      unique: true,
+    },
+    phone_no: {
+      type: DataTypes.STRING,
+      nullable: true,
+    },
+    will_list: {
+      type: DataTypes.STRING,
     },
     password: {
       type: DataTypes.STRING,
     },
-    avatar: {
-      type: DataTypes.STRING,
-      nullable: true,
-    },
-    user_role: {
-      type: DataTypes.ENUM("admin", "user"), // An ENUM with allowed values 'foo' and 'bar'
+    member_type: {
+      type: DataTypes.ENUM("regular", "child"), // An ENUM with allowed values 'foo' and 'bar'
     },
     refresh_token: {
       type: DataTypes.STRING,
