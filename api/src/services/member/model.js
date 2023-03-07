@@ -3,16 +3,16 @@ const db = require("../../helper/database");
 
 const { DataTypes } = Sequelize;
 
-const Members = db.define(
+const Member = db.define(
   "members",
   {
-    first_name: {
+    firstName: {
       type: DataTypes.STRING,
     },
-    middle_name: {
+    middleName: {
       type: DataTypes.STRING,
     },
-    last_name: {
+    lastName: {
       type: DataTypes.STRING,
     },
     title: {
@@ -27,19 +27,19 @@ const Members = db.define(
       type: DataTypes.DATE,
       nullable: true,
     },
-    martial_status: {
+    martialStatus: {
       type: DataTypes.ENUM("married", "single", "divorced", "widow"),
       nullable: true,
     },
-    family_members_no: {
+    familyMembers_no: {
       type: DataTypes.INTEGER,
       nullable: true,
     },
-    family_members_gender: {
+    familyMembersGender: {
       type: DataTypes.STRING,
       nullable: true,
     },
-    edu_status: {
+    eduStatus: {
       type: DataTypes.ENUM(
         "elementary",
         "primary",
@@ -52,28 +52,28 @@ const Members = db.define(
       ),
       nullable: true,
     },
-    job_title: {
+    jobTitle: {
       type: DataTypes.STRING,
       unique: true,
     },
-    job_experience: {
+    jobExperience: {
       type: DataTypes.STRING,
       unique: true,
     },
-    phone_no: {
+    phoneNo: {
       type: DataTypes.STRING,
       nullable: true,
     },
-    will_list: {
+    willList: {
       type: DataTypes.STRING,
     },
     password: {
       type: DataTypes.STRING,
     },
-    member_type: {
+    memberType: {
       type: DataTypes.ENUM("regular", "child"), // An ENUM with allowed values 'foo' and 'bar'
     },
-    refresh_token: {
+    refreshToken: {
       type: DataTypes.STRING,
     },
   },
@@ -82,4 +82,61 @@ const Members = db.define(
   }
 );
 
-module.exports = Users;
+const City = db.define(
+  "cities",
+  {
+    name: {
+      type: DataTypes.STRING,
+    },
+  },
+  {
+    freezeTableName: true,
+  }
+);
+
+const SubCity = db.define(
+  "sub_cities",
+  {
+    name: {
+      type: DataTypes.STRING,
+    },
+    woredas: {
+      type: DataTypes.INTEGER,
+    },
+  },
+  {
+    freezeTableName: true,
+  }
+);
+
+const MemberAddress = db.define(
+  "member_addresses",
+  {
+    woreda: {
+      type: DataTypes.INTEGER,
+    },
+    houseNo: {
+      type: DataTypes.INTEGER,
+    },
+    placeName: {
+      type: DataTypes.INTEGER,
+    },
+    phoneNo2: {
+      type: DataTypes.STRING,
+    },
+  },
+  {
+    freezeTableName: true,
+  }
+);
+
+MemberAddress.hasMany(City);
+City.belongsTo(MemberAddress);
+
+MemberAddress.hasMany(SubCity);
+SubCity.belongsTo(MemberAddress);
+
+MemberAddress.hasOne(Member);
+Member.belongsTo(MemberAddress);
+
+module.exports = { Member, City, SubCity, MemberAddress };
