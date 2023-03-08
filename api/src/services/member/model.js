@@ -130,13 +130,101 @@ const MemberAddress = db.define(
   }
 );
 
+const EmergencyContact = db.define(
+  "emergency_contact",
+  {
+    firstName: {
+      type: DataTypes.STRING,
+    },
+    middleName: {
+      type: DataTypes.STRING,
+    },
+    lastName: {
+      type: DataTypes.STRING,
+    },
+    woreda: {
+      type: DataTypes.INTEGER,
+    },
+    houseNo: {
+      type: DataTypes.INTEGER,
+    },
+    phoneNo: {
+      type: DataTypes.STRING,
+    },
+  },
+  {
+    freezeTableName: true,
+  }
+);
+
+const IdentificationType = db.define(
+  "identification_type",
+  {
+    name: {
+      type: DataTypes.STRING,
+    },
+  },
+  {
+    freezeTableName: true,
+  }
+);
+
+const MemberId = db.define(
+  "identification_type",
+  {
+    MemberId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: Member, // 'Members' would also work
+        key: "id",
+      },
+    },
+    IdentificationTypeId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: IdentificationType, // 'IdentificationTypes' would also work
+        key: "id",
+      },
+    },
+    id_number: {
+      type: DataTypes.STRING,
+    },
+  },
+  {
+    freezeTableName: true,
+  }
+);
+
+// Member to MemberAddress relation
+MemberAddress.hasOne(Member);
+Member.belongsTo(MemberAddress);
+
 MemberAddress.hasMany(City);
 City.belongsTo(MemberAddress);
 
 MemberAddress.hasMany(SubCity);
 SubCity.belongsTo(MemberAddress);
 
-MemberAddress.hasOne(Member);
-Member.belongsTo(MemberAddress);
+// Member to EmergencyContact relation
+EmergencyContact.hasMany(City);
+City.belongsTo(EmergencyContact);
 
-module.exports = { Member, City, SubCity, MemberAddress };
+EmergencyContact.hasMany(SubCity);
+SubCity.belongsTo(EmergencyContact);
+
+EmergencyContact.hasOne(Member);
+Member.belongsTo(EmergencyContact);
+
+// Member to identificationType relation
+Member.belongsToMany(IdentificationType, { through: MemberId });
+IdentificationType.belongsToMany(Member, { through: MemberId });
+
+module.exports = {
+  Member,
+  City,
+  SubCity,
+  MemberAddress,
+  EmergencyContact,
+  IdentificationType,
+  MemberId,
+};
