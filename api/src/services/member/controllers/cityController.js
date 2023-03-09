@@ -1,6 +1,5 @@
 const { City } = require("../model");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+// const jwt = require("jsonwebtoken");
 
 const getCities = async (req, res) => {
   try {
@@ -18,12 +17,9 @@ const getCities = async (req, res) => {
 
 const getCity = async (req, res) => {
   try {
-    const { id } = req.params.id;
-
-    const city = await City.findAll({
-      where: {
-        id: id,
-      },
+    const id = req.params.id;
+    const city = await City.findByPk(id, {
+      attributes: ["id", "name"],
     });
     res.status(200).json({
       success: true,
@@ -49,9 +45,8 @@ const insert = async (req, res) => {
 };
 
 const update = async (req, res) => {
-  const { id } = req.params.id;
-
   try {
+    const id = req.params.id;
     const city = await City.update(req.body, {
       where: {
         id: id,
@@ -68,6 +63,7 @@ const update = async (req, res) => {
 
 const destroy = async (req, res) => {
   try {
+    const id = req.params.id;
     const city = await City.destroy({
       where: {
         id: id,
