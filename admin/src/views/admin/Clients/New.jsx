@@ -36,11 +36,10 @@ const NewClient = () => {
   };
 
   useEffect(() => {
-    const getCities = () => {
-      const res = axiosClient.get("/cities");
+    const getCities = async () => {
+      const res = await axiosClient.get("/cities");
 
-      console.log(res);
-      setCities(res);
+      setCities(res.data.payload);
     };
 
     getCities();

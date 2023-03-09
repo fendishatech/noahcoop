@@ -4,17 +4,9 @@ const schema = Joi.object({
   first_name: Joi.string().alphanum().min(3).max(30).required(),
   last_name: Joi.string().alphanum().min(3).max(30).required(),
   email: Joi.string().email().required(),
-  password: Joi.string().required(),
-  avatar: Joi.string(),
-  user_role: Joi.string().valid("admin", "user").required(),
-  confirm_password: Joi.any()
-    .equal(Joi.ref("password"))
-    .required()
-    .label("Confirm password")
-    .messages({ "any.only": "{{#label}} does not match" }),
 });
 
-const inputValidation = (req, res, next) => {
+const clientValidator = (req, res, next) => {
   try {
     const { body } = req;
 
@@ -31,5 +23,5 @@ const inputValidation = (req, res, next) => {
 };
 
 module.exports = {
-  inputValidation,
+  clientValidator,
 };

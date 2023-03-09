@@ -1,0 +1,29 @@
+###
+GET http://localhost:3333/api/clients HTTP/1.1
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoia2lkdXNAbm9haCIsImVtYWlsIjoia2lkdXNAZ21haWwuY29tIiwiaWF0IjoxNjc3MzkwMTQ3LCJleHAiOjE2Nzc4MjIxNDd9.ninDEqyaQlfULlTO6_omR2dmoEahHuKLziL7QIOSSfI
+
+###
+GET http://localhost:3333/api/clients/3 HTTP/1.1
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoia2lkdXNAbm9haCIsImVtYWlsIjoia2lkdXNAZ21haWwuY29tIiwiaWF0IjoxNjc3MzkwMTQ3LCJleHAiOjE2Nzc4MjIxNDd9.ninDEqyaQlfULlTO6_omR2dmoEahHuKLziL7QIOSSfI
+
+###
+POST http://localhost:3333/api/clients/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "first_name" : "kidus",
+    "last_name" : "taye",
+    "email" : "kidus2@gmail.com",
+    "phone_no": "0913974307"
+}
+
+###
+PUT http://localhost:3333/api/clients/1 HTTP/1.1
+Content-Type: application/json
+
+{
+    "last_name" : "Taye"
+}
+
+###
+DELETE http://localhost:3333/api/clients/3 HTTP/1.1
