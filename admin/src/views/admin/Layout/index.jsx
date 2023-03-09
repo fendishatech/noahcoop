@@ -14,7 +14,7 @@ const Layout = () => {
         <CssBaseline />
         <div className="app">
           <Sidebar open={open} setOpen={setOpen} />
-          <main style={{ marginLeft: open ? "64px" : "300px" }}>
+          <main style={{ marginLeft: open ? "64px" : "270px" }}>
             <TopBar />
             <Box p={2}>
               <Outlet />

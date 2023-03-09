@@ -1,10 +1,14 @@
+import { useEffect, useState } from "react";
 import { Box, Button, TextField } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
+import axiosClient from "../../../api/axiosClient";
 
 const NewClient = () => {
+  const [cities, setCities] = useState({});
+
   const initialValues = {
     firstName: "",
     lastName: "",
@@ -30,6 +34,18 @@ const NewClient = () => {
   const handleFormSubmit = (values) => {
     console.log(values);
   };
+
+  useEffect(() => {
+    const getCities = () => {
+      const res = axiosClient.get("/cities");
+
+      console.log(res);
+      setCities(res);
+    };
+
+    getCities();
+  }, []);
+
   return (
     <Box m="20px">
       <Header title="አዲስ ደምበኛ" subtitle="" />

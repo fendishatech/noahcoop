@@ -56,7 +56,7 @@ const Sidebar = ({ open, setOpen }) => {
   return (
     <Box
       sx={{
-        width: isCollapsed ? "60px" : "300px",
+        width: isCollapsed ? "60px" : "270px",
         position: "fixed",
         zIndex: "1",
       }}

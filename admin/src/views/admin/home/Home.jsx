@@ -5,8 +5,7 @@ import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import TrafficIcon from "@mui/icons-material/Traffic";
 
-import { tokens } from "../../theme";
-import { mockTransactions } from "../../data/mockData";
+import { tokens } from "../../../context/themeContext";
 import Header from "../../components/Header";
 // import LineChart from "../../components/LineChart";
 // import GeographyChart from "../../components/GeographyChart";

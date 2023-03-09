@@ -4,8 +4,9 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const db = require("./helper/database");
 const userRouter = require("./services/user/routes");
+const cityRoutes = require("./services/member/routes/cityRoutes");
 // DEBUG
-// const { migrateSchema } = require("./helper/migrate");
+const { migrateSchema } = require("./helper/migrate");
 
 // APP
 const app = express();
@@ -25,6 +26,7 @@ dotenv.config();
 
 // ROUTES
 app.use("/api/", userRouter);
+app.use("/api/", cityRoutes);
 
 // SERVER
 app.listen(3333, () => console.log("Server running at http://localhost:3333"));
