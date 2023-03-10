@@ -40,7 +40,10 @@ const insert = async (req, res) => {
       payload: city,
     });
   } catch (error) {
-    return res.status(500);
+    return res.status(500).json({
+      success: false,
+      message: error.errors[0].message,
+    });
   }
 };
 

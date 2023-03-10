@@ -87,6 +87,7 @@ const City = db.define(
   {
     name: {
       type: DataTypes.STRING,
+      unique: true,
     },
   },
   {

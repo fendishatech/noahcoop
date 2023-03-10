@@ -33,6 +33,7 @@ const Clients = () => {
       flex: 1,
     },
     {
+      field: "actions",
       headerName: "Actions",
       flex: 1,
       renderCell: ({ row: { access } }) => {
@@ -65,14 +66,17 @@ const Clients = () => {
   ];
 
   const getClients = async () => {
-    const res = await axiosClient.get("/clients");
-    setClients(res.data.payload);
+    try {
+      const res = await axiosClient.get("/clients");
+      setClients(res.data.payload);
+    } catch (error) {
+      console.log(error.message);
+    }
   };
   useEffect(() => {
     getClients();
   }, []);
 
-  console.log(clients);
   return (
     <Box m="10px">
       <Box

@@ -1,3 +1,4 @@
+const { sendError } = require("../../helper/functions");
 const Clients = require("./model");
 const { Client } = require("./model");
 // const jwt = require("jsonwebtoken");
@@ -12,7 +13,10 @@ const getClients = async (req, res) => {
       payload: clients,
     });
   } catch (error) {
-    res.status(500);
+    return res.status(500).json({
+      success: false,
+      message: errorMessage,
+    });
   }
 };
 
@@ -20,14 +24,17 @@ const getClient = async (req, res) => {
   try {
     const id = req.params.id;
     const client = await Clients.findByPk(id, {
-      attributes: ["id", "name"],
+      attributes: ["id", "first_name", "last_name", "email", "phone_no"],
     });
     res.status(200).json({
       success: true,
       payload: client,
     });
   } catch (error) {
-    res.status(500);
+    return res.status(500).json({
+      success: false,
+      message: error.errors[0].message,
+    });
   }
 };
 
@@ -44,7 +51,10 @@ const insert = async (req, res) => {
       payload: client,
     });
   } catch (error) {
-    return res.status(500);
+    return res.status(500).json({
+      success: false,
+      message: error.errors[0].message,
+    });
   }
 };
 
@@ -61,24 +71,40 @@ const update = async (req, res) => {
       payload: client,
     });
   } catch (error) {
-    res.status(500);
+    return res.status(500).json({
+      success: false,
+      message: error.errors[0].message,
+    });
   }
 };
 
-const destroy = async (req, res) => {
+const deleteClient = async (req, res) => {
   try {
     const id = req.params.id;
-    const client = await Client.destroy({
-      where: {
-        id: id,
-      },
+
+    const client = await Clients.findOne({
+      where: { id: id },
     });
-    res.status(200).json({
-      success: true,
-      payload: client,
-    });
+
+    if (client) {
+      const deletedClient = await Clients.destroy({
+        where: { id: id },
+      });
+      return res.status(200).json({
+        success: true,
+        payload: deletedClient,
+      });
+    } else {
+      return res.status(500).json({
+        success: false,
+        message: "Client could not be found.",
+      });
+    }
   } catch (error) {
-    res.status(500);
+    return res.status(500).json({
+      success: false,
+      message: error.errors[0].message,
+    });
   }
 };
 
@@ -87,5 +113,5 @@ module.exports = {
   getClient,
   insert,
   update,
-  destroy,
+  deleteClient,
 };

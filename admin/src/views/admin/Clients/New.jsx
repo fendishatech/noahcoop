@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Box, Button, TextField } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
+import { toast } from "react-toastify";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import axiosClient from "../../../api/axiosClient";
@@ -40,7 +41,8 @@ const NewClient = () => {
     try {
       const res = await axiosClient.post("/clients", values);
       console.log(res);
-      // navigate("/clients");
+      toast.success("client registered successfully!");
+      navigate("/clients");
     } catch (error) {
       console.log(error.message);
     }
