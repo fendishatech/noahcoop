@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Box, Button, Typography, useTheme } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../../context/themeContext";
@@ -6,46 +7,23 @@ import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettin
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "../../components/Header";
+import axiosClient from "../../../api/axiosClient";
 
 const Clients = () => {
+  const [clients, setClients] = useState({});
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const data = [
-    {
-      id: 1,
-      name: "John Doe",
-      email: "john@gmail.com",
-      age: 44,
-      phone: "+2519-11-121314",
-      access: "admin",
-    },
-    {
-      id: 2,
-      name: "Jean Doe",
-      email: "jean@gmail.com",
-      age: 44,
-      phone: "+2519-11-222324",
-      access: "user",
-    },
-  ];
 
   const columns = [
     { field: "id", headerName: "ID" },
     {
-      field: "name",
+      field: "first_name",
       headerName: "Name",
       flex: 1,
       cellClassName: "name-column--cell",
     },
     {
-      field: "age",
-      headerName: "Age",
-      type: "number",
-      headerAlign: "left",
-      align: "left",
-    },
-    {
-      field: "phone",
+      field: "phone_no",
       headerName: "Phone Number",
       flex: 1,
     },
@@ -55,8 +33,7 @@ const Clients = () => {
       flex: 1,
     },
     {
-      field: "accessLevel",
-      headerName: "Access Level",
+      headerName: "Actions",
       flex: 1,
       renderCell: ({ row: { access } }) => {
         return (
@@ -79,13 +56,23 @@ const Clients = () => {
             {access === "manager" && <SecurityOutlinedIcon />}
             {access === "user" && <LockOpenOutlinedIcon />}
             <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
-              {access}
+              ወደ አባል ቀይር
             </Typography>
           </Box>
         );
       },
     },
   ];
+
+  const getClients = async () => {
+    const res = await axiosClient.get("/clients");
+    setClients(res.data.payload);
+  };
+  useEffect(() => {
+    getClients();
+  }, []);
+
+  console.log(clients);
   return (
     <Box m="10px">
       <Box
@@ -160,7 +147,7 @@ const Clients = () => {
       >
         <DataGrid
           checkboxSelection
-          rows={data}
+          rows={clients}
           columns={columns}
           components={{ Toolbar: GridToolbar }}
         />
