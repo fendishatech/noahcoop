@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { Box, Button, TextField } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
@@ -9,8 +9,11 @@ import Header from "../../components/Header";
 import axiosClient from "../../../api/axiosClient";
 
 const NewClient = () => {
+  const [client, setClient] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState({});
+
+  const { id } = useParams();
 
   const navigate = useNavigate();
 
@@ -37,16 +40,28 @@ const NewClient = () => {
   });
 
   const handleFormSubmit = async (values) => {
-    try {
-      const res = await axiosClient.post("/clients", values);
-      console.log(res);
-      toast.success("client registered successfully!");
-      navigate("/clients");
-    } catch (error) {
-      console.log(error.message);
-    }
+    console.log(values);
+    // try {
+    //   const res = await axiosClient.put(`/clients/${id}`, values);
+    //   console.log(res);
+    //   toast.success("client registered successfully!");
+    //   navigate("/clients");
+    // } catch (error) {
+    //   console.log(error.message);
+    // }
   };
 
+  useEffect(() => {
+    const getClient = async () => {
+      const res = await axiosClient.get(`/clients/${id}`);
+
+      setClient(res.data.payload);
+    };
+
+    getClient();
+  }, []);
+
+  console.log(initialValues);
   return (
     <Box m="20px">
       <Header title="አዲስ ደምበኛ" subtitle="" />

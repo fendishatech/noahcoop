@@ -11,6 +11,7 @@ import {
   Settings,
   NotFound,
   NewClient,
+  EditClient,
 } from "../views";
 
 const router = createBrowserRouter([
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: "/new_client",
         element: <NewClient />,
+      },
+      {
+        path: "/edit_client/:id",
+        element: <EditClient />,
       },
       {
         path: "/staff",

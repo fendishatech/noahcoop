@@ -17,10 +17,12 @@ const Clients = () => {
   const columns = [
     { field: "id", headerName: "ID" },
     {
-      field: "first_name",
-      headerName: "Name",
+      field: "fullName",
+      headerName: "Full Name",
       flex: 1,
       cellClassName: "name-column--cell",
+      valueGetter: (params) =>
+        `${params.row.first_name || ""} ${params.row.last_name || ""}`,
     },
     {
       field: "phone_no",
@@ -35,8 +37,8 @@ const Clients = () => {
     {
       field: "actions",
       headerName: "Actions",
-      flex: 1,
-      renderCell: ({ row: { access } }) => {
+      flex: 2,
+      renderCell: ({ row: { id } }) => {
         return (
           <Box
             width="60%"
@@ -44,21 +46,38 @@ const Clients = () => {
             p="5px"
             display="flex"
             justifyContent="center"
-            backgroundColor={
-              access === "admin"
-                ? colors.greenAccent[600]
-                : access === "manager"
-                ? colors.greenAccent[700]
-                : colors.greenAccent[700]
-            }
+            gap={2}
+            // backgroundColor={
+            //   access === "admin"
+            //     ? colors.greenAccent[600]
+            //     : access === "manager"
+            //     ? colors.greenAccent[700]
+            //     : colors.greenAccent[700]
+            // }
             borderRadius="4px"
           >
-            {access === "admin" && <AdminPanelSettingsOutlinedIcon />}
+            {/* {access === "admin" && <AdminPanelSettingsOutlinedIcon />}
             {access === "manager" && <SecurityOutlinedIcon />}
-            {access === "user" && <LockOpenOutlinedIcon />}
-            <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
+            {access === "user" && <LockOpenOutlinedIcon />} */}
+            <Button
+              variant="contained"
+              color="secondary"
+              href={`/edit_client/${id}`}
+            >
+              Edit
+            </Button>
+            <Button variant="contained" color="error">
+              Delete
+            </Button>
+            <Button variant="contained" color="success">
+              ወደ አባል ቀይር
+            </Button>
+            {/* <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
               ወደ አባል ቀይር
             </Typography>
+            <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
+              ወደ አባል ቀይር
+            </Typography> */}
           </Box>
         );
       },
