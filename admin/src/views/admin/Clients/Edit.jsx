@@ -15,14 +15,14 @@ const NewClient = () => {
 
   const { id } = useParams();
 
-  const navigate = useNavigate();
-
   const initialValues = {
     first_name: "",
     last_name: "",
     email: "",
     phone_no: "",
   };
+
+  const navigate = useNavigate();
 
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
@@ -41,14 +41,14 @@ const NewClient = () => {
 
   const handleFormSubmit = async (values) => {
     console.log(values);
-    // try {
-    //   const res = await axiosClient.put(`/clients/${id}`, values);
-    //   console.log(res);
-    //   toast.success("client registered successfully!");
-    //   navigate("/clients");
-    // } catch (error) {
-    //   console.log(error.message);
-    // }
+    try {
+      const res = await axiosClient.put(`/clients/${id}`, values);
+      console.log(res);
+      toast.success("client updated successfully!");
+      navigate("/clients");
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   useEffect(() => {
@@ -56,12 +56,16 @@ const NewClient = () => {
       const res = await axiosClient.get(`/clients/${id}`);
 
       setClient(res.data.payload);
+      initialValues.first_name = res.data.payload.first_name;
+      initialValues.last_name = res.data.payload.last_name;
+      initialValues.email = res.data.payload.email;
+      initialValues.phone_no = res.data.payload.phone_no;
     };
 
     getClient();
   }, []);
 
-  console.log(initialValues);
+  console.log(client);
   return (
     <Box m="20px">
       <Header title="አዲስ ደምበኛ" subtitle="" />
@@ -142,7 +146,7 @@ const NewClient = () => {
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
               <Button type="submit" color="secondary" variant="contained">
-                Create New User
+                Update Client
               </Button>
             </Box>
           </form>
