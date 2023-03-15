@@ -35,6 +35,19 @@ const router = createBrowserRouter([
         path: "/edit_client/:id",
         element: <EditClient />,
       },
+      // member routes
+      {
+        path: "/members",
+        element: <Members />,
+      },
+      {
+        path: "/new_member",
+        element: <NewMember />,
+      },
+      {
+        path: "/edit_member/:id",
+        element: <EditMember />,
+      },
       {
         path: "/staff",
         element: <Staff />,
