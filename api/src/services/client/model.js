@@ -6,17 +6,20 @@ const { DataTypes } = Sequelize;
 const Clients = db.define(
   "clients",
   {
-    first_name: {
+    firstName: {
       type: DataTypes.STRING,
     },
-    last_name: {
+    middleName: {
+      type: DataTypes.STRING,
+    },
+    lastName: {
       type: DataTypes.STRING,
     },
     email: {
       type: DataTypes.STRING,
       unique: true,
     },
-    phone_no: {
+    phoneNo: {
       type: DataTypes.STRING,
     },
   },

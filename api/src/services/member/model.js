@@ -73,6 +73,13 @@ const Member = db.define(
     memberType: {
       type: DataTypes.ENUM("regular", "child"), // An ENUM with allowed values 'foo' and 'bar'
     },
+    email: {
+      type: DataTypes.STRING,
+      unique: true,
+    },
+    phoneNo: {
+      type: DataTypes.STRING,
+    },
     refreshToken: {
       type: DataTypes.STRING,
     },
