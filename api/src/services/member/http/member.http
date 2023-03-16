@@ -1,0 +1,28 @@
+###
+GET http://localhost:3333/api/members HTTP/1.1
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoia2lkdXNAbm9haCIsImVtYWlsIjoia2lkdXNAZ21haWwuY29tIiwiaWF0IjoxNjc3MzkwMTQ3LCJleHAiOjE2Nzc4MjIxNDd9.ninDEqyaQlfULlTO6_omR2dmoEahHuKLziL7QIOSSfI
+
+###
+GET http://localhost:3333/api/members/1 HTTP/1.1
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoia2lkdXNAbm9haCIsImVtYWlsIjoia2lkdXNAZ21haWwuY29tIiwiaWF0IjoxNjc3MzkwMTQ3LCJleHAiOjE2Nzc4MjIxNDd9.ninDEqyaQlfULlTO6_omR2dmoEahHuKLziL7QIOSSfI
+
+###
+POST http://localhost:3333/api/members/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "firstName" : "john",
+    "middleName" : "snow",
+    "lastName" : "doe"
+}
+
+###
+PUT http://localhost:3333/api/members/2 HTTP/1.1
+Content-Type: application/json
+
+{
+    "name" : "adama"
+}
+
+###
+DELETE http://localhost:3333/api/members/3 HTTP/1.1

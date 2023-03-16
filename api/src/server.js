@@ -5,6 +5,7 @@ const cors = require("cors");
 const db = require("./helper/database");
 const userRouter = require("./services/user/routes");
 const cityRoutes = require("./services/member/routes/cityRoutes");
+const memberRoutes = require("./services/member/routes/memberRoutes");
 const clientRoutes = require("./services/client/routes");
 // DEBUG
 const { migrateSchema } = require("./helper/migrate");
@@ -29,6 +30,7 @@ migrateSchema();
 app.use("/api/", userRouter);
 app.use("/api/", cityRoutes);
 app.use("/api/", clientRoutes);
+app.use("/api/", memberRoutes);
 
 // SERVER
 app.listen(3333, () => console.log("Server running at http://localhost:3333"));

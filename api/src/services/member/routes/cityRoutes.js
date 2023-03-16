@@ -4,7 +4,7 @@ const cityController = require("../controllers/cityController");
 const { verifyToken } = require("../../../middlewares/verifyToken");
 const refreshToken = require("../../../middlewares/refreshToken");
 
-const { cityValidator } = require("../validators/cityValidatior");
+const { cityValidator } = require("../validators/cityValidator");
 
 const router = express.Router();
 
