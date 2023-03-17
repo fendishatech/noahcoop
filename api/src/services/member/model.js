@@ -56,7 +56,11 @@ const Member = db.define(
       type: DataTypes.STRING,
       unique: true,
     },
-    jobExperience: {
+    jobExperienceYear: {
+      type: DataTypes.STRING,
+      unique: true,
+    },
+    jobExperienceMonth: {
       type: DataTypes.STRING,
       unique: true,
     },
