@@ -121,7 +121,7 @@ const SubCity = db.define(
   }
 );
 
-const IdentificationType = db.define(
+const IdType = db.define(
   "identification_type",
   {
     name: {
@@ -228,8 +228,8 @@ const IdentificationType = db.define(
 // Member.belongsTo(EmergencyContact);
 
 // // Member to identificationType relation
-// Member.belongsToMany(IdentificationType, { through: MemberId });
-// IdentificationType.belongsToMany(Member, { through: MemberId });
+// Member.belongsToMany(IdType, { through: MemberId });
+// IdType.belongsToMany(Member, { through: MemberId });
 
 module.exports = {
   Member,
@@ -237,6 +237,6 @@ module.exports = {
   SubCity,
   // MemberAddress,
   // EmergencyContact,
-  IdentificationType,
+  IdType,
   // MemberId,
 };

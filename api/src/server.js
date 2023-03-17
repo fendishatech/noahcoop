@@ -5,6 +5,7 @@ const cors = require("cors");
 const db = require("./helper/database");
 const userRouter = require("./services/user/routes");
 const cityRoutes = require("./services/member/routes/cityRoutes");
+const idTypeRoutes = require("./services/member/routes/idTypeRoutes");
 const subCityRoutes = require("./services/member/routes/subCityRoutes");
 const memberRoutes = require("./services/member/routes/memberRoutes");
 const clientRoutes = require("./services/client/routes");
@@ -31,6 +32,7 @@ migrateSchema();
 app.use("/api/", userRouter);
 app.use("/api/", cityRoutes);
 app.use("/api/", subCityRoutes);
+app.use("/api/", idTypeRoutes);
 app.use("/api/", clientRoutes);
 app.use("/api/", memberRoutes);
 

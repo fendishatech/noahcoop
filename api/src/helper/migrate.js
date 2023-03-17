@@ -7,7 +7,7 @@ const {
   SubCity,
   MemberAddress,
   EmergencyContact,
-  IdentificationType,
+  IdType,
   MemberId,
 } = require("../services/member/model");
 
@@ -23,7 +23,7 @@ const migrateSchema = async () => {
     await SubCity.sync();
     // await MemberAddress.sync();
     // await EmergencyContact.sync();
-    await IdentificationType.sync();
+    await IdType.sync();
     // await MemberId.sync();
     console.log("Migration must'a went well!");
   } catch (error) {
