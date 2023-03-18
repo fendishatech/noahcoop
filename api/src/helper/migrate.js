@@ -16,16 +16,18 @@ const migrateSchema = async () => {
     await db.authenticate();
     console.log("Database is connected");
 
-    await userModel.sync();
-    await clientModel.sync();
-    await Member.sync();
-    await City.sync();
-    await SubCity.sync();
+    // await userModel.sync();
+    // await clientModel.sync();
+    // await Member.sync();
+    // await City.sync();
+    // await SubCity.sync();
+    // await MemberAddress.sync();
     // await MemberAddress.sync();
     // await EmergencyContact.sync();
-    await IdType.sync();
+    // await IdType.sync();
     // await MemberId.sync();
-    console.log("Migration must'a went well!");
+    await db.sync({ alter: true });
+    console.log("Syncing database went well!");
   } catch (error) {
     console.log(error.message);
   }

@@ -133,110 +133,108 @@ const IdType = db.define(
   }
 );
 
-// const MemberAddress = db.define(
-//   "member_addresses",
-//   {
-//     woreda: {
-//       type: DataTypes.INTEGER,
-//     },
-//     houseNo: {
-//       type: DataTypes.INTEGER,
-//     },
-//     placeName: {
-//       type: DataTypes.INTEGER,
-//     },
-//     phoneNo2: {
-//       type: DataTypes.STRING,
-//     },
-//   },
-//   {
-//     freezeTableName: true,
-//   }
-// );
+const MemberAddress = db.define(
+  "member_addresses",
+  {
+    woreda: {
+      type: DataTypes.INTEGER,
+    },
+    houseNo: {
+      type: DataTypes.INTEGER,
+    },
+    placeName: {
+      type: DataTypes.INTEGER,
+    },
+    phoneNo2: {
+      type: DataTypes.STRING,
+    },
+  },
+  {
+    freezeTableName: true,
+  }
+);
 
-// const EmergencyContact = db.define(
-//   "emergency_contact",
-//   {
-//     firstName: {
-//       type: DataTypes.STRING,
-//     },
-//     middleName: {
-//       type: DataTypes.STRING,
-//     },
-//     lastName: {
-//       type: DataTypes.STRING,
-//     },
-//     woreda: {
-//       type: DataTypes.INTEGER,
-//     },
-//     houseNo: {
-//       type: DataTypes.INTEGER,
-//     },
-//     phoneNo: {
-//       type: DataTypes.STRING,
-//     },
-//   },
-//   {
-//     freezeTableName: true,
-//   }
-// );
+const EmergencyContact = db.define(
+  "emergency_contact",
+  {
+    firstName: {
+      type: DataTypes.STRING,
+    },
+    middleName: {
+      type: DataTypes.STRING,
+    },
+    lastName: {
+      type: DataTypes.STRING,
+    },
+    woreda: {
+      type: DataTypes.INTEGER,
+    },
+    houseNo: {
+      type: DataTypes.INTEGER,
+    },
+    phoneNo: {
+      type: DataTypes.STRING,
+    },
+  },
+  {
+    freezeTableName: true,
+  }
+);
 
-// const MemberId = db.define(
-//   "identification_type",
-//   {
-//     MemberId: {
-//       type: DataTypes.INTEGER,
-//       references: {
-//         model: Member, // 'Members' would also work
-//         key: "id",
-//       },
-//     },
-//     IdentificationTypeId: {
-//       type: DataTypes.INTEGER,
-//       references: {
-//         model: IdentificationType, // 'IdentificationTypes' would also work
-//         key: "id",
-//       },
-//     },
-//     id_number: {
-//       type: DataTypes.STRING,
-//     },
-//   },
-//   {
-//     freezeTableName: true,
-//   }
-// );
-
+//  One to One
 // Member to MemberAddress relation
-// MemberAddress.hasOne(Member);
-// Member.belongsTo(MemberAddress);
+Member.hasOne(MemberAddress);
+MemberAddress.belongsTo(Member);
 
-// MemberAddress.hasMany(City);
-// City.belongsTo(MemberAddress);
+Member.hasOne(EmergencyContact);
+EmergencyContact.belongsTo(Member);
 
-// MemberAddress.hasMany(SubCity);
-// SubCity.belongsTo(MemberAddress);
+//  One to many
+City.hasMany(MemberAddress);
+MemberAddress.belongsTo(City);
 
-// // Member to EmergencyContact relation
-// EmergencyContact.hasMany(City);
-// City.belongsTo(EmergencyContact);
+City.hasMany(EmergencyContact);
+EmergencyContact.belongsTo(City);
 
-// EmergencyContact.hasMany(SubCity);
-// SubCity.belongsTo(EmergencyContact);
+SubCity.hasMany(MemberAddress);
+MemberAddress.belongsTo(SubCity);
 
-// EmergencyContact.hasOne(Member);
-// Member.belongsTo(EmergencyContact);
+SubCity.hasMany(EmergencyContact);
+EmergencyContact.belongsTo(SubCity);
 
-// // Member to identificationType relation
-// Member.belongsToMany(IdType, { through: MemberId });
-// IdType.belongsToMany(Member, { through: MemberId });
+// Many to Many
+const MemberId = db.define("MemberId", {
+  memberId: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: Member,
+      key: "id",
+    },
+  },
+  IdTypeId: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: IdType,
+      key: "id",
+    },
+  },
+  idNumber: {
+    type: DataTypes.STRING,
+  },
+  idPath: {
+    type: DataTypes.STRING,
+  },
+});
+
+Member.belongsToMany(IdType, { through: MemberId });
+IdType.belongsToMany(Member, { through: MemberId });
 
 module.exports = {
   Member,
   City,
   SubCity,
-  // MemberAddress,
-  // EmergencyContact,
+  MemberAddress,
+  EmergencyContact,
   IdType,
-  // MemberId,
+  MemberId,
 };
