@@ -26,7 +26,7 @@ app.use(
 );
 dotenv.config();
 
-migrateSchema();
+// migrateSchema();
 
 // ROUTES
 app.use("/api/", userRouter);

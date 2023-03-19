@@ -1,30 +1,30 @@
-const { IdType } = require("../model");
+const { MemberId } = require("../model");
 
-const attributes = ["id", "name"];
+const attributes = ["id", "idTypeId", "idNumber", "idPath", "memberId"];
 
-const getIdTypes = async (req, res) => {
+const getMemberIds = async (req, res) => {
   try {
-    const idTypes = await IdType.findAll({
+    const memberIds = await MemberId.findAll({
       attributes: attributes,
     });
     res.status(200).json({
       success: true,
-      payload: idTypes,
+      payload: memberIds,
     });
   } catch (error) {
     res.status(500);
   }
 };
 
-const getIdType = async (req, res) => {
+const getMemberId = async (req, res) => {
   try {
     const id = req.params.id;
-    const idType = await IdType.findByPk(id, {
+    const memberIMemberId = await MemberId.findByPk(id, {
       attributes: attributes,
     });
     res.status(200).json({
       success: true,
-      payload: idType,
+      payload: memberIMemberId,
     });
   } catch (error) {
     res.status(500);
@@ -33,12 +33,16 @@ const getIdType = async (req, res) => {
 
 const insert = async (req, res) => {
   try {
-    const idType = await IdType.create({
-      name: req.body.name,
+    const { idTypeId, idNumber, idPath, memberId } = req.body;
+    const memberIMemberId = await MemberId.create({
+      idTypeId: idTypeId,
+      memberId: memberId,
+      idNumber: idNumber,
+      idPath: idPath,
     });
     return res.status(200).json({
       success: true,
-      payload: idType,
+      payload: memberIMemberId,
     });
   } catch (error) {
     return res.status(500).json({
@@ -51,14 +55,14 @@ const insert = async (req, res) => {
 const update = async (req, res) => {
   try {
     const id = req.params.id;
-    const idType = await IdType.update(req.body, {
+    const memberIMemberId = await MemberId.update(req.body, {
       where: {
         id: id,
       },
     });
     res.status(200).json({
       success: true,
-      payload: idType,
+      payload: memberIMemberId,
     });
   } catch (error) {
     res.status(500);
@@ -68,14 +72,14 @@ const update = async (req, res) => {
 const destroy = async (req, res) => {
   try {
     const id = req.params.id;
-    const idType = await IdType.destroy({
+    const memberIMemberId = await MemberId.destroy({
       where: {
         id: id,
       },
     });
     res.status(200).json({
       success: true,
-      payload: idType,
+      payload: memberIMemberId,
     });
   } catch (error) {
     res.status(500);
@@ -83,8 +87,8 @@ const destroy = async (req, res) => {
 };
 
 module.exports = {
-  getIdTypes,
-  getIdType,
+  getMemberIds,
+  getMemberId,
   insert,
   update,
   destroy,
