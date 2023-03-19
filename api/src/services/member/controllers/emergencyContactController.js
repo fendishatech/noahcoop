@@ -50,6 +50,8 @@ const insert = async (req, res) => {
       houseNo,
       phoneNo,
       memberId,
+      cityId,
+      subCityId,
     } = req.body;
     const emergencyContact = await EmergencyContact.create({
       firstName: firstName,

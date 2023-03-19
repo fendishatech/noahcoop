@@ -122,7 +122,7 @@ const SubCity = db.define(
 );
 
 const IdType = db.define(
-  "identification_type",
+  "id_types",
   {
     name: {
       type: DataTypes.STRING,
@@ -143,7 +143,7 @@ const MemberAddress = db.define(
       type: DataTypes.INTEGER,
     },
     placeName: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
     },
     phoneNo2: {
       type: DataTypes.STRING,
@@ -211,13 +211,13 @@ const MemberId = db.define("MemberId", {
       key: "id",
     },
   },
-  IdTypeId: {
-    type: DataTypes.INTEGER,
-    references: {
-      model: IdType,
-      key: "id",
-    },
-  },
+  // idTypeId: {
+  //   type: DataTypes.INTEGER,
+  //   references: {
+  //     model: IdType,
+  //     key: "id",
+  //   },
+  // },
   idNumber: {
     type: DataTypes.STRING,
   },

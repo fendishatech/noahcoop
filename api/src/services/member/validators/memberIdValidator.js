@@ -1,10 +1,13 @@
 const Joi = require("joi");
 
 const schema = Joi.object({
-  name: Joi.string().min(3).max(30).required(),
+  idTypeId: Joi.number().required(),
+  idNumber: Joi.string().required(),
+  idPath: Joi.string().required(),
+  memberId: Joi.number().required(),
 });
 
-const idTypeValidator = (req, res, next) => {
+const memberIdValidator = (req, res, next) => {
   try {
     const { body } = req;
 
@@ -21,5 +24,5 @@ const idTypeValidator = (req, res, next) => {
 };
 
 module.exports = {
-  idTypeValidator,
+  memberIdValidator,
 };
