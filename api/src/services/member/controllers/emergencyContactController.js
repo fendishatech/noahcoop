@@ -16,12 +16,15 @@ const getEmergencyContacts = async (req, res) => {
     const emergencyContacts = await EmergencyContact.findAll({
       attributes: attributes,
     });
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       payload: emergencyContacts,
     });
   } catch (error) {
-    res.status(500);
+    return res.status(500).json({
+      success: false,
+      message: error.errors[0].message,
+    });
   }
 };
 

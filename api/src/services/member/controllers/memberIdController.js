@@ -1,18 +1,22 @@
 const { MemberId } = require("../model");
 
-const attributes = ["id", "idTypeId", "idNumber", "idPath", "memberId"];
+const attributes = ["idTypeId", "idNumber", "idPath", "memberId"];
 
 const getMemberIds = async (req, res) => {
   try {
     const memberIds = await MemberId.findAll({
       attributes: attributes,
     });
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       payload: memberIds,
     });
   } catch (error) {
-    res.status(500);
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+      // message: error.errors[0].message,
+    });
   }
 };
 
