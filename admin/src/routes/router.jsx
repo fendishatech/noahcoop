@@ -4,14 +4,16 @@ import {
   Layout,
   Login,
   Home,
-  Clients,
   Staff,
-  Members,
   Loan,
   Settings,
   NotFound,
+  Clients,
   NewClient,
   EditClient,
+  Members,
+  NewMember,
+  EditMember,
 } from "../views";
 
 const router = createBrowserRouter([
