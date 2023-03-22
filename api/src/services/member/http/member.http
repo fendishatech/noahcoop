@@ -22,6 +22,7 @@ Content-Type: application/json
     "familyMembersGender" : "2 males, 2 females",
     "eduStatus" : "degree",
     "phoneNo" : "0911121314",
+    "email" : "member@gmail.com",
     "password" : "password",
     "willList" : "Mr. Doe, Mrs. Doe",
     "memberType" : "regular"

@@ -14,6 +14,7 @@ const attributes = [
   "familyMembers_no",
   "familyMembersGender",
   "phoneNo",
+  "email",
   "willList",
   "memberType",
 ];
@@ -67,6 +68,7 @@ const insert = async (req, res) => {
       familyMembersGender,
       phoneNo,
       password,
+      email,
       willList,
       memberType,
     } = req.body;
@@ -85,6 +87,7 @@ const insert = async (req, res) => {
       familyMembers_no: familyMembers_no,
       familyMembersGender: familyMembersGender,
       phoneNo: phoneNo,
+      phoneNo: email,
       password: hashedPassword,
       willList: willList,
       memberType: memberType,

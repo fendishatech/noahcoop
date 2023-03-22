@@ -44,6 +44,10 @@ const Member = db.define(
       type: DataTypes.STRING,
       nullable: true,
     },
+    email: {
+      type: DataTypes.STRING,
+      nullable: true,
+    },
     willList: {
       type: DataTypes.STRING,
     },

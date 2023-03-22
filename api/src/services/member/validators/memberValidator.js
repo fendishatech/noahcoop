@@ -12,6 +12,7 @@ const schema = Joi.object({
   familyMembersGender: Joi.string().required(),
   eduStatus: Joi.string().required(),
   phoneNo: Joi.string().required(),
+  email: Joi.string().email().required(),
   password: Joi.string().required(),
   willList: Joi.string().required(),
   memberType: Joi.string().required(),

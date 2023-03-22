@@ -14,6 +14,28 @@ const Members = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
+  const handleDelete = async (id) => {
+    console.log(id);
+    if (confirm("Do you want to delete this record?")) {
+      try {
+        const res = await axiosClient.delete(`/members/${id}`);
+        getMembers();
+      } catch (error) {}
+    } else {
+      console.log("return to app");
+    }
+  };
+
+  const providedAttributes = [
+    "gender",
+    "dob",
+    "martialStatus",
+    "familyMembers_no",
+    "familyMembersGender",
+    "phoneNo",
+    "willList",
+    "memberType",
+  ];
   const columns = [
     { field: "id", headerName: "ID" },
     {
@@ -22,10 +44,19 @@ const Members = () => {
       flex: 1,
       cellClassName: "name-column--cell",
       valueGetter: (params) =>
-        `${params.row.first_name || ""} ${params.row.last_name || ""}`,
+        ` ${params.row.title || ""} ${params.row.firstName || ""} ${
+          params.row.middleName || ""
+        }${params.row.lastName || ""}`,
     },
     {
-      field: "phone_no",
+      field: "gender",
+      headerName: "Gender",
+      flex: 1,
+      cellClassName: "name-column--cell",
+      valueGetter: (params) => ` ${params.row.gender || ""}`,
+    },
+    {
+      field: "phoneNo",
       headerName: "Phone Number",
       flex: 1,
     },
@@ -66,18 +97,16 @@ const Members = () => {
             >
               Edit
             </Button>
+            <Button
+              variant="contained"
+              color="secondary"
+              href={`/member_detail/${id}`}
+            >
+              Detail
+            </Button>
             <Button variant="contained" color="error">
               Delete
             </Button>
-            <Button variant="contained" color="success">
-              ወደ አባል ቀይር
-            </Button>
-            {/* <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
-              ወደ አባል ቀይር
-            </Typography>
-            <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
-              ወደ አባል ቀይር
-            </Typography> */}
           </Box>
         );
       },
@@ -86,10 +115,12 @@ const Members = () => {
 
   const getMembers = async () => {
     try {
-      const res = await axiosMember.get("/members");
+      const res = await axiosClient.get("/members");
       setMembers(res.data.payload);
+      console.log(res.data.payload);
     } catch (error) {
       console.log(error.message);
+      // toast.error(res.data.message);
     }
   };
   useEffect(() => {

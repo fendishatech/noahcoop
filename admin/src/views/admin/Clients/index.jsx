@@ -16,7 +16,7 @@ const Clients = () => {
 
   const handleDelete = async (id) => {
     console.log(id);
-    if (confirm("Do you want te delete this record?")) {
+    if (confirm("Do you want to delete this record?")) {
       try {
         const res = await axiosClient.delete(`/clients/${id}`);
         getClients();
