@@ -22,11 +22,13 @@ const Clients = () => {
       flex: 1,
       cellClassName: "name-column--cell",
       valueGetter: (params) =>
-        `${params.row.first_name || ""} ${params.row.last_name || ""}`,
+        `${params.row.firstName || ""} ${params.row.middleName || ""} ${
+          params.row.lastName || ""
+        }`,
     },
     {
-      field: "phone_no",
-      headerName: "Phone Number",
+      field: "phoneNo",
+      headerName: "Phone Numbers",
       flex: 1,
     },
     {
@@ -95,7 +97,6 @@ const Clients = () => {
   useEffect(() => {
     getClients();
   }, []);
-
   return (
     <Box m="10px">
       <Box

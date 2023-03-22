@@ -3,10 +3,19 @@ const Clients = require("./model");
 const { Client } = require("./model");
 // const jwt = require("jsonwebtoken");
 
+const attributes = [
+  "id",
+  "firstName",
+  "middleName",
+  "lastName",
+  "email",
+  "phoneNo",
+];
+
 const getClients = async (req, res) => {
   try {
     const clients = await Clients.findAll({
-      attributes: ["id", "first_name", "last_name", "email", "phone_no"],
+      attributes: attributes,
     });
     res.status(200).json({
       success: true,
@@ -15,7 +24,7 @@ const getClients = async (req, res) => {
   } catch (error) {
     return res.status(500).json({
       success: false,
-      message: errorMessage,
+      message: error.message,
     });
   }
 };
@@ -24,7 +33,7 @@ const getClient = async (req, res) => {
   try {
     const id = req.params.id;
     const client = await Clients.findByPk(id, {
-      attributes: ["id", "first_name", "last_name", "email", "phone_no"],
+      attributes: attributes,
     });
     res.status(200).json({
       success: true,
@@ -41,17 +50,18 @@ const getClient = async (req, res) => {
 const insert = async (req, res) => {
   try {
     const client = await Clients.create({
-      first_name: req.body.first_name,
-      last_name: req.body.last_name,
+      firstName: req.body.firstName,
+      middleName: req.body.middleName,
+      lastName: req.body.lastName,
       email: req.body.email,
-      phone_no: req.body.phone_no,
+      phoneNo: req.body.phoneNo,
     });
     return res.status(200).json({
       success: true,
       payload: client,
     });
   } catch (error) {
-    return res.status(500).json({
+    return res.status(200).json({
       success: false,
       message: error.errors[0].message,
     });

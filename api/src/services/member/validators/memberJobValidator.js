@@ -1,14 +1,13 @@
 const Joi = require("joi");
 
 const schema = Joi.object({
-  firstName: Joi.string().alphanum().min(3).max(30).required(),
-  middleName: Joi.string().alphanum().min(3).max(30).required(),
-  lastName: Joi.string().alphanum().min(3).max(30).required(),
-  email: Joi.string().email().required(),
-  phoneNo: Joi.string().required(),
+  title: Joi.string().min(3).max(30).required(),
+  exp_year: Joi.number().required(),
+  exp_month: Joi.number().required(),
+  memberID: Joi.number().required(),
 });
 
-const clientValidator = (req, res, next) => {
+const memberJobValidator = (req, res, next) => {
   try {
     const { body } = req;
 
@@ -25,5 +24,5 @@ const clientValidator = (req, res, next) => {
 };
 
 module.exports = {
-  clientValidator,
+  memberJobValidator,
 };

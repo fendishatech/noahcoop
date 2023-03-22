@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize");
 const db = require("../../helper/database");
+const EducationalStatus = require("../models/educationalStatus");
 
 const { DataTypes } = Sequelize;
 
@@ -38,31 +39,6 @@ const Member = db.define(
     familyMembersGender: {
       type: DataTypes.STRING,
       nullable: true,
-    },
-    eduStatus: {
-      type: DataTypes.ENUM(
-        "elementary",
-        "primary",
-        "secondary",
-        "college",
-        "degree",
-        "masters",
-        "phd",
-        "professor"
-      ),
-      nullable: true,
-    },
-    jobTitle: {
-      type: DataTypes.STRING,
-      unique: true,
-    },
-    jobExperienceYear: {
-      type: DataTypes.STRING,
-      unique: true,
-    },
-    jobExperienceMonth: {
-      type: DataTypes.STRING,
-      unique: true,
     },
     phoneNo: {
       type: DataTypes.STRING,
@@ -154,6 +130,24 @@ const MemberAddress = db.define(
   }
 );
 
+const MemberJob = db.define(
+  "member_jobs",
+  {
+    title: {
+      type: DataTypes.STRING,
+    },
+    exp_year: {
+      type: DataTypes.INTEGER,
+    },
+    exp_month: {
+      type: DataTypes.INTEGER,
+    },
+  },
+  {
+    freezeTableName: true,
+  }
+);
+
 const EmergencyContact = db.define(
   "emergency_contact",
   {
@@ -186,10 +180,16 @@ const EmergencyContact = db.define(
 Member.hasOne(MemberAddress);
 MemberAddress.belongsTo(Member);
 
+Member.hasOne(MemberJob);
+MemberJob.belongsTo(Member);
+
 Member.hasOne(EmergencyContact);
 EmergencyContact.belongsTo(Member);
 
 //  One to many
+Member.hasMany(EducationalStatus);
+EducationalStatus.belongsTo(Member);
+
 City.hasMany(MemberAddress);
 MemberAddress.belongsTo(City);
 
@@ -211,13 +211,13 @@ const MemberId = db.define("MemberId", {
       key: "id",
     },
   },
-  // idTypeId: {
-  //   type: DataTypes.INTEGER,
-  //   references: {
-  //     model: IdType,
-  //     key: "id",
-  //   },
-  // },
+  idTypeId: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: IdType,
+      key: "id",
+    },
+  },
   idNumber: {
     type: DataTypes.STRING,
   },
@@ -237,4 +237,5 @@ module.exports = {
   EmergencyContact,
   IdType,
   MemberId,
+  MemberJob,
 };

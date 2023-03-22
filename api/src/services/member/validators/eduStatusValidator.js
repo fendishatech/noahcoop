@@ -1,14 +1,10 @@
 const Joi = require("joi");
 
 const schema = Joi.object({
-  firstName: Joi.string().alphanum().min(3).max(30).required(),
-  middleName: Joi.string().alphanum().min(3).max(30).required(),
-  lastName: Joi.string().alphanum().min(3).max(30).required(),
-  email: Joi.string().email().required(),
-  phoneNo: Joi.string().required(),
+  name: Joi.string().min(3).max(30).required(),
 });
 
-const clientValidator = (req, res, next) => {
+const eduStatusValidator = (req, res, next) => {
   try {
     const { body } = req;
 
@@ -25,5 +21,5 @@ const clientValidator = (req, res, next) => {
 };
 
 module.exports = {
-  clientValidator,
+  eduStatusValidator,
 };

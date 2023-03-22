@@ -16,10 +16,11 @@ const NewClient = () => {
   const { id } = useParams();
 
   const initialValues = {
-    first_name: "",
-    last_name: "",
+    firstName: "",
+    middleName: "",
+    lastName: "",
     email: "",
-    phone_no: "",
+    phoneNo: "",
   };
 
   const navigate = useNavigate();
@@ -30,22 +31,27 @@ const NewClient = () => {
     /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
 
   const checkoutSchema = yup.object().shape({
-    first_name: yup.string().required("required"),
-    last_name: yup.string().required("required"),
+    firstName: yup.string().required("required"),
+    middleName: yup.string().required("required"),
+    lastName: yup.string().required("required"),
     email: yup.string().email("invalid email").required("required"),
-    phone_no: yup
+    phoneNo: yup
       .string()
       .matches(phoneRegExp, "Phone number is not valid")
       .required("required"),
   });
 
   const handleFormSubmit = async (values) => {
-    console.log(values);
     try {
+      console.log("Okay");
       const res = await axiosClient.put(`/clients/${id}`, values);
       console.log(res);
-      toast.success("client updated successfully!");
-      navigate("/clients");
+      if (res.data.success) {
+        toast.success("client updated successfully!");
+        navigate("/clients");
+      } else {
+        toast.error(res.data.message);
+      }
     } catch (error) {
       console.log(error.message);
     }
@@ -56,10 +62,11 @@ const NewClient = () => {
       const res = await axiosClient.get(`/clients/${id}`);
 
       setClient(res.data.payload);
-      initialValues.first_name = res.data.payload.first_name;
-      initialValues.last_name = res.data.payload.last_name;
+      initialValues.firstName = res.data.payload.firstName;
+      initialValues.middleName = res.data.payload.middleName;
+      initialValues.lastName = res.data.payload.lastName;
       initialValues.email = res.data.payload.email;
-      initialValues.phone_no = res.data.payload.phone_no;
+      initialValues.phoneNo = res.data.payload.phoneNo;
     };
 
     getClient();
@@ -98,10 +105,23 @@ const NewClient = () => {
                 label="First Name"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.first_name}
-                name="first_name"
-                error={!!touched.first_name && !!errors.first_name}
-                helperText={touched.first_name && errors.first_name}
+                value={values.firstName}
+                name="firstName"
+                error={!!touched.firstName && !!errors.firstName}
+                helperText={touched.firstName && errors.firstName}
+                sx={{ gridColumn: "span 2" }}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Middle Name"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.middleName}
+                name="middleName"
+                error={!!touched.middleName && !!errors.middleName}
+                helperText={touched.middleName && errors.middleName}
                 sx={{ gridColumn: "span 2" }}
               />
               <TextField
@@ -111,10 +131,10 @@ const NewClient = () => {
                 label="Last Name"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.last_name}
-                name="last_name"
-                error={!!touched.last_name && !!errors.last_name}
-                helperText={touched.last_name && errors.last_name}
+                value={values.lastName}
+                name="lastName"
+                error={!!touched.lastName && !!errors.lastName}
+                helperText={touched.lastName && errors.lastName}
                 sx={{ gridColumn: "span 2" }}
               />
               <TextField
@@ -137,10 +157,10 @@ const NewClient = () => {
                 label="Phone no Number"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.phone_no}
-                name="phone_no"
-                error={!!touched.phone_no && !!errors.phone_no}
-                helperText={touched.phone_no && errors.phone_no}
+                value={values.phoneNo}
+                name="phoneNo"
+                error={!!touched.phoneNo && !!errors.phoneNo}
+                helperText={touched.phoneNo && errors.phoneNo}
                 sx={{ gridColumn: "span 2" }}
               />
             </Box>

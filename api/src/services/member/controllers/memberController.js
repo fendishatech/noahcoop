@@ -13,9 +13,6 @@ const attributes = [
   "martialStatus",
   "familyMembers_no",
   "familyMembersGender",
-  "eduStatus",
-  "jobTitle",
-  "jobExperience",
   "phoneNo",
   "willList",
   "memberType",
@@ -23,17 +20,17 @@ const attributes = [
 
 const getMembers = async (req, res) => {
   try {
-    const cities = await Member.findAll({
+    const members = await Member.findAll({
       attributes: attributes,
     });
     res.status(200).json({
       success: true,
-      payload: cities,
+      payload: members,
     });
   } catch (error) {
     return res.status(500).json({
       success: false,
-      message: error.errors[0].message,
+      message: error.message,
     });
   }
 };
@@ -68,9 +65,6 @@ const insert = async (req, res) => {
       martialStatus,
       familyMembers_no,
       familyMembersGender,
-      eduStatus,
-      jobTitle,
-      jobExperience,
       phoneNo,
       password,
       willList,
@@ -90,9 +84,6 @@ const insert = async (req, res) => {
       martialStatus: martialStatus,
       familyMembers_no: familyMembers_no,
       familyMembersGender: familyMembersGender,
-      eduStatus: eduStatus,
-      jobTitle: jobTitle,
-      jobExperience: jobExperience,
       phoneNo: phoneNo,
       password: hashedPassword,
       willList: willList,

@@ -15,19 +15,16 @@ Content-Type: application/json
     "middleName" : "snow",
     "lastName" : "doe",
     "title" : "Dr.",
-      "gender" : "male",
-      "dob" : "Sat, 18 Feb 2015 18:27:50 GMT",
-      "martialStatus" : "single",
-      "familyMembers_no" : "4",
-      "familyMembersGender" : "2 males, 2 females",
-      "eduStatus" : "degree",
-      "jobTitle" : "Dentist",
-      "jobExperienceYear" : "4",
-      "jobExperienceMonth" : "7",
-      "phoneNo" : "0911121314",
-      "password" : "password",
-      "willList" : "Mr. Doe, Mrs. Doe",
-      "memberType" : "regular"
+    "gender" : "male",
+    "dob" : "Sat, 18 Feb 2015 18:27:50 GMT",
+    "martialStatus" : "single",
+    "familyMembers_no" : "4",
+    "familyMembersGender" : "2 males, 2 females",
+    "eduStatus" : "degree",
+    "phoneNo" : "0911121314",
+    "password" : "password",
+    "willList" : "Mr. Doe, Mrs. Doe",
+    "memberType" : "regular"
 }
 
 ###
