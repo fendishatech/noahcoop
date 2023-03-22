@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField, Select, MenuItem } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { toast } from "react-toastify";
@@ -15,10 +15,19 @@ const NewMember = () => {
   const navigate = useNavigate();
 
   const initialValues = {
-    first_name: "",
-    last_name: "",
+    firstName: "",
+    middleName: "",
+    lastName: "",
+    title: "",
+    gender: "",
+    dob: "",
+    martialStatus: "",
+    familyMembers_no: "",
+    familyMembersGender: "",
+    phoneNo: "",
     email: "",
-    phone_no: "",
+    willList: "",
+    memberType: "",
   };
 
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -27,18 +36,22 @@ const NewMember = () => {
     /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
 
   const checkoutSchema = yup.object().shape({
-    first_name: yup.string().required("required"),
-    last_name: yup.string().required("required"),
+    firstName: yup.string().required("required"),
+    middleName: yup.string().required("required"),
+    lastName: yup.string().required("required"),
+    gender: yup.string().required("required"),
     email: yup.string().email("invalid email").required("required"),
-    phone_no: yup
+    phoneNo: yup
       .string()
       .matches(phoneRegExp, "Phone number is not valid")
       .required("required"),
   });
 
   const handleFormSubmit = async (values) => {
+    console.log(values);
+    return;
     try {
-      const res = await axiosMember.post("/members", values);
+      const res = await axiosClient.post("/members", values);
       console.log(res);
       toast.success("member registered successfully!");
       navigate("/members");
@@ -79,10 +92,23 @@ const NewMember = () => {
                 label="First Name"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.first_name}
-                name="first_name"
-                error={!!touched.first_name && !!errors.first_name}
-                helperText={touched.first_name && errors.first_name}
+                value={values.firstName}
+                name="firstName"
+                error={!!touched.firstName && !!errors.firstName}
+                helperText={touched.firstName && errors.firstName}
+                sx={{ gridColumn: "span 2" }}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Middle Name"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.middleName}
+                name="middleName"
+                error={!!touched.middleName && !!errors.middleName}
+                helperText={touched.middleName && errors.middleName}
                 sx={{ gridColumn: "span 2" }}
               />
               <TextField
@@ -92,12 +118,27 @@ const NewMember = () => {
                 label="Last Name"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.last_name}
-                name="last_name"
-                error={!!touched.last_name && !!errors.last_name}
-                helperText={touched.last_name && errors.last_name}
+                value={values.lastName}
+                name="lastName"
+                error={!!touched.lastName && !!errors.lastName}
+                helperText={touched.lastName && errors.lastName}
                 sx={{ gridColumn: "span 2" }}
               />
+
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Title"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.title}
+                name="title"
+                error={!!touched.title && !!errors.title}
+                helperText={touched.title && errors.title}
+                sx={{ gridColumn: "span 2" }}
+              />
+
               <TextField
                 fullWidth
                 variant="filled"
@@ -118,12 +159,27 @@ const NewMember = () => {
                 label="Phone no Number"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.phone_no}
-                name="phone_no"
-                error={!!touched.phone_no && !!errors.phone_no}
-                helperText={touched.phone_no && errors.phone_no}
+                value={values.phoneNo}
+                name="phoneNo"
+                error={!!touched.phoneNo && !!errors.phoneNo}
+                helperText={touched.phoneNo && errors.phoneNo}
                 sx={{ gridColumn: "span 2" }}
               />
+              <Select
+                fullWidth
+                variant="filled"
+                label="Gender"
+                value={values.gender}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                name="gender"
+                error={!!touched.gender && !!errors.gender}
+                helperText={touched.gender && errors.gender}
+                sx={{ gridColumn: "span 2" }}
+              >
+                <MenuItem value={"male"}>Male</MenuItem>
+                <MenuItem value={"female"}>Female</MenuItem>
+              </Select>
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
               <Button type="submit" color="secondary" variant="contained">

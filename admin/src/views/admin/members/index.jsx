@@ -32,7 +32,6 @@ const Members = () => {
     "martialStatus",
     "familyMembers_no",
     "familyMembersGender",
-    "phoneNo",
     "willList",
     "memberType",
   ];
