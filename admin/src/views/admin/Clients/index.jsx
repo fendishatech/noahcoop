@@ -14,6 +14,18 @@ const Clients = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
+  const handleDelete = async (id) => {
+    console.log(id);
+    if (confirm("Do you want te delete this record?")) {
+      try {
+        const res = await axiosClient.delete(`/clients/${id}`);
+        getClients();
+      } catch (error) {}
+    } else {
+      console.log("return to app");
+    }
+  };
+
   const columns = [
     { field: "id", headerName: "ID" },
     {
@@ -68,10 +80,14 @@ const Clients = () => {
             >
               Edit
             </Button>
-            <Button variant="contained" color="error">
+            <Button
+              variant="contained"
+              color="error"
+              onClick={() => handleDelete(id)}
+            >
               Delete
             </Button>
-            <Button variant="contained" color="success">
+            <Button variant="contained" color="success" href={`/new_member/`}>
               ወደ አባል ቀይር
             </Button>
             {/* <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
@@ -91,7 +107,8 @@ const Clients = () => {
       const res = await axiosClient.get("/clients");
       setClients(res.data.payload);
     } catch (error) {
-      console.log(error.message);
+      // console.log(error.message);
+      toast.error(res.data.message);
     }
   };
   useEffect(() => {
