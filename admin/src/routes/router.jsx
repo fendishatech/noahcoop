@@ -14,6 +14,12 @@ import {
   Members,
   NewMember,
   EditMember,
+  Cities,
+  NewCity,
+  EditCity,
+  SubCities,
+  NewSubCity,
+  EditSubCity,
 } from "../views";
 
 const router = createBrowserRouter([
@@ -49,6 +55,32 @@ const router = createBrowserRouter([
       {
         path: "/edit_member/:id",
         element: <EditMember />,
+      },
+      // city routes
+      {
+        path: "/cities",
+        element: <Cities />,
+      },
+      {
+        path: "/new_city",
+        element: <NewCity />,
+      },
+      {
+        path: "/edit_city/:id",
+        element: <EditCity />,
+      },
+      // subCity routes
+      {
+        path: "/sub_cities",
+        element: <SubCities />,
+      },
+      {
+        path: "/new_sub_city",
+        element: <NewSubCity />,
+      },
+      {
+        path: "/edit_sub_city/:id",
+        element: <EditSubCity />,
       },
       {
         path: "/staff",

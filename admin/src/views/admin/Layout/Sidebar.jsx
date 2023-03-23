@@ -21,6 +21,7 @@ import PeopleIcon from "@mui/icons-material/People";
 import SupervisedUserCircleIcon from "@mui/icons-material/SupervisedUserCircle";
 import SettingsIcon from "@mui/icons-material/Settings";
 import SavingsIcon from "@mui/icons-material/Savings";
+// import {LocationCity} from "@mui/icons-material";
 
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 
@@ -34,6 +35,16 @@ const Sidebar = ({ open, setOpen }) => {
     {
       title: "ደምበኛ",
       linkTo: "/clients",
+      icon: <PersonIcon />,
+    },
+    {
+      title: "ከተሞች",
+      linkTo: "/cities",
+      icon: <PersonIcon />,
+    },
+    {
+      title: "ክ/ከተሞች",
+      linkTo: "/sub_cities",
       icon: <PersonIcon />,
     },
     {

@@ -13,6 +13,14 @@ import EditClient from "./admin/Clients/Edit";
 import Members from "./admin/members";
 import NewMember from "./admin/members/New";
 import EditMember from "./admin/members/Edit";
+// Cities Views
+import Cities from "./admin/cities";
+import NewCity from "./admin/cities/New";
+import EditCity from "./admin/cities/Edit";
+// SubCities Views
+import SubCities from "./admin/subCities";
+import NewSubCity from "./admin/subCities/New";
+import EditSubCity from "./admin/subCities/Edit";
 
 export {
   Layout,
@@ -28,4 +36,10 @@ export {
   Members,
   NewMember,
   EditMember,
+  Cities,
+  NewCity,
+  EditCity,
+  SubCities,
+  NewSubCity,
+  EditSubCity,
 };
