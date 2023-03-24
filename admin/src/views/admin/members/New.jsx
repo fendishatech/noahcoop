@@ -1,6 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Box, Button, TextField, Select, MenuItem } from "@mui/material";
+import {
+  Box,
+  Button,
+  TextField,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
+} from "@mui/material";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { toast } from "react-toastify";
@@ -138,7 +147,6 @@ const NewMember = () => {
                 helperText={touched.title && errors.title}
                 sx={{ gridColumn: "span 2" }}
               />
-
               <TextField
                 fullWidth
                 variant="filled"
@@ -165,21 +173,49 @@ const NewMember = () => {
                 helperText={touched.phoneNo && errors.phoneNo}
                 sx={{ gridColumn: "span 2" }}
               />
-              <Select
-                fullWidth
-                variant="filled"
-                label="Gender"
-                value={values.gender}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                name="gender"
-                error={!!touched.gender && !!errors.gender}
-                helperText={touched.gender && errors.gender}
+
+              <FormControl sx={{ gridColumn: "span 2" }}>
+                <InputLabel id="gender-select-label">Gender</InputLabel>
+                <Select
+                  labelId="gender-select-label"
+                  fullWidth
+                  variant="filled"
+                  label="Gender"
+                  value={values.gender}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  name="gender"
+                  error={!!touched.gender && !!errors.gender}
+                  helperText={touched.gender && errors.gender}
+                  sx={{ gridColumn: "span 2" }}
+                >
+                  <MenuItem value={"male"}>Male</MenuItem>
+                  <MenuItem value={"female"}>Female</MenuItem>
+                </Select>
+              </FormControl>
+              <FormControl sx={{ gridColumn: "span 2" }}>
+                <Select
+                  fullWidth
+                  variant="filled"
+                  label="Martial Status"
+                  value={values.martialStatus}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  name="martialStatus"
+                  error={!!touched.martialStatus && !!errors.martialStatus}
+                  helperText={touched.martialStatus && errors.martialStatus}
+                >
+                  <MenuItem value={"single"}>Single</MenuItem>
+                  <MenuItem value={"married"}>Married</MenuItem>
+                  <MenuItem value={"divorced"}>Divorced</MenuItem>
+                  <MenuItem value={"widow"}>Widow</MenuItem>
+                </Select>
+              </FormControl>
+              <DatePicker
+                disablePast
+                views={["year", "month", "day"]}
                 sx={{ gridColumn: "span 2" }}
-              >
-                <MenuItem value={"male"}>Male</MenuItem>
-                <MenuItem value={"female"}>Female</MenuItem>
-              </Select>
+              />
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
               <Button type="submit" color="secondary" variant="contained">
