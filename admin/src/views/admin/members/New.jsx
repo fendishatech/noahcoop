@@ -242,7 +242,7 @@ const NewMember = () => {
               <TextField
                 fullWidth
                 variant="filled"
-                type="text"
+                type="password"
                 label="Password"
                 onBlur={handleBlur}
                 onChange={handleChange}
@@ -271,7 +271,7 @@ const NewMember = () => {
                 fullWidth
                 variant="filled"
                 type="text"
-                label="FAmily Members in Gender"
+                label="Family Members in Gender"
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.familyMembersGender}
@@ -284,33 +284,69 @@ const NewMember = () => {
                 }
                 sx={{ gridColumn: "span 2" }}
               />
-            </Box>
-            <FormControl sx={{ gridColumn: "span 2" }}>
-              <InputLabel id="gender-select-label">Gender</InputLabel>
-              <Select
-                labelId="gender-select-label"
+
+              <FormControl sx={{ gridColumn: "span 2" }}>
+                <InputLabel id="eduStatus-select-label">
+                  Educational Status
+                </InputLabel>
+                <Select
+                  labelId="eduStatus-select-label"
+                  fullWidth
+                  variant="filled"
+                  label="Educational Status"
+                  value={values.eduStatus}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  name="eduStatus"
+                  error={!!touched.eduStatus && !!errors.eduStatus}
+                  helperText={touched.eduStatus && errors.eduStatus}
+                  sx={{ gridColumn: "span 2" }}
+                >
+                  {eduStatuses.length > 0 &&
+                    eduStatuses.map((status, index) => (
+                      <>
+                        <Option key={index} value={status.id}>
+                          {status.name}
+                        </Option>
+                      </>
+                    ))}
+                </Select>
+              </FormControl>
+
+              <TextField
                 fullWidth
                 variant="filled"
-                label="Gender"
-                value={values.gender}
+                type="text"
+                label="Will List"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                name="gender"
-                error={!!touched.gender && !!errors.gender}
-                helperText={touched.gender && errors.gender}
+                value={values.willList}
+                name="willList"
+                error={!!touched.willList && !!errors.willList}
+                helperText={touched.willList && errors.willList}
                 sx={{ gridColumn: "span 2" }}
-              >
-                {eduStatuses &&
-                  eduStatuses.map((status, index) => (
-                    <>
-                      <MenuItem key={index} value={status.name}>
-                        {status.name}
-                      </MenuItem>
-                    </>
-                  ))}
-              </Select>
-            </FormControl>
+              />
 
+              <FormControl sx={{ gridColumn: "span 2" }}>
+                <InputLabel id="memberType-select-label">
+                  Member Type
+                </InputLabel>
+                <Select
+                  fullWidth
+                  variant="filled"
+                  labelId="memberType-select-label"
+                  value={values.memberType}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  name="memberType"
+                  error={!!touched.memberType && !!errors.memberType}
+                  helperText={touched.memberType && errors.memberType}
+                >
+                  <MenuItem value={"regular"}>Regular</MenuItem>
+                  <MenuItem value={"children"}>Children</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
             <Box display="flex" justifyContent="end" mt="20px">
               <Button type="submit" color="secondary" variant="contained">
                 Create New Member
