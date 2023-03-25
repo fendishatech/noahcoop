@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Box,
@@ -10,15 +10,19 @@ import {
   FormControl,
 } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { toast } from "react-toastify";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import axiosClient from "../../../api/axiosClient";
+import axios from "axios";
 
 const NewMember = () => {
   const [loading, setLoading] = useState(true);
+  const [eduStatuses, setEduStatuses] = useState(true);
   const [error, setError] = useState({});
 
   const navigate = useNavigate();
@@ -68,6 +72,15 @@ const NewMember = () => {
       console.log(error.message);
     }
   };
+
+  useEffect(() => {
+    const getEduStatuses = async () => {
+      const res = await axiosClient.get("/edu_statuses");
+      setEduStatuses(res.data.payload);
+    };
+
+    getEduStatuses();
+  }, []);
 
   return (
     <Box m="20px">
@@ -211,12 +224,93 @@ const NewMember = () => {
                   <MenuItem value={"widow"}>Widow</MenuItem>
                 </Select>
               </FormControl>
-              <DatePicker
-                disablePast
-                views={["year", "month", "day"]}
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  fullWidth
+                  variant="filled"
+                  label="Birth Day"
+                  // value={values.dob}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  name="dob"
+                  error={!!touched.dob && !!errors.dob}
+                  helperText={touched.dob && errors.dob}
+                  sx={{ gridColumn: "span 2" }}
+                />
+              </LocalizationProvider>
+
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Password"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.password}
+                name="password"
+                error={!!touched.password && !!errors.password}
+                helperText={touched.password && errors.password}
+                sx={{ gridColumn: "span 2" }}
+              />
+
+              <TextField
+                fullWidth
+                variant="filled"
+                type="number"
+                label="No of Family members"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.familyMembers_no}
+                name="familyMembers_no"
+                error={!!touched.familyMembers_no && !!errors.familyMembers_no}
+                helperText={touched.familyMembers_no && errors.familyMembers_no}
+                sx={{ gridColumn: "span 2" }}
+              />
+
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="FAmily Members in Gender"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.familyMembersGender}
+                name="familyMembersGender"
+                error={
+                  !!touched.familyMembersGender && !!errors.familyMembersGender
+                }
+                helperText={
+                  touched.familyMembersGender && errors.familyMembersGender
+                }
                 sx={{ gridColumn: "span 2" }}
               />
             </Box>
+            <FormControl sx={{ gridColumn: "span 2" }}>
+              <InputLabel id="gender-select-label">Gender</InputLabel>
+              <Select
+                labelId="gender-select-label"
+                fullWidth
+                variant="filled"
+                label="Gender"
+                value={values.gender}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                name="gender"
+                error={!!touched.gender && !!errors.gender}
+                helperText={touched.gender && errors.gender}
+                sx={{ gridColumn: "span 2" }}
+              >
+                {eduStatuses &&
+                  eduStatuses.map((status, index) => (
+                    <>
+                      <MenuItem key={index} value={status.name}>
+                        {status.name}
+                      </MenuItem>
+                    </>
+                  ))}
+              </Select>
+            </FormControl>
+
             <Box display="flex" justifyContent="end" mt="20px">
               <Button type="submit" color="secondary" variant="contained">
                 Create New Member

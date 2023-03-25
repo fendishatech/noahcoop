@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "@emotion/styled": "^11.10.6",
-    "@mui/x-date-pickers": "^6.0.3"
-  }
-}
