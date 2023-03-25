@@ -21,6 +21,7 @@ import PeopleIcon from "@mui/icons-material/People";
 import SupervisedUserCircleIcon from "@mui/icons-material/SupervisedUserCircle";
 import SettingsIcon from "@mui/icons-material/Settings";
 import SavingsIcon from "@mui/icons-material/Savings";
+import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 // import {LocationCity} from "@mui/icons-material";
 
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
@@ -32,6 +33,11 @@ const Sidebar = ({ open, setOpen }) => {
   const [selected, setSelected] = useState("Dashboard");
 
   const linkItems = [
+    {
+      title: "አባላት",
+      linkTo: "/members",
+      icon: <SupervisedUserCircleIcon />,
+    },
     {
       title: "ደምበኛ",
       linkTo: "/clients",
@@ -48,18 +54,23 @@ const Sidebar = ({ open, setOpen }) => {
       icon: <PersonIcon />,
     },
     {
+      title: "የትምህርት ደረጃ ",
+      linkTo: "/sub_cities",
+      icon: <PersonIcon />,
+    },
+    {
       title: "ስታፍ",
       linkTo: "/staff",
       icon: <PeopleIcon />,
     },
     {
-      title: "አባላት",
-      linkTo: "/members",
-      icon: <SupervisedUserCircleIcon />,
-    },
-    {
       title: "የብድር አገልግሎት",
       linkTo: "/loan",
+      icon: <MonetizationOnIcon />,
+    },
+    {
+      title: "የቁተባ አገልግሎት",
+      linkTo: "/sub_cities",
       icon: <SavingsIcon />,
     },
   ];
