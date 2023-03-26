@@ -105,6 +105,11 @@ const login = async (req, res) => {
 
     res.json({
       accessToken,
+      user: {
+        userId,
+        username,
+        email,
+      },
     });
   } catch (error) {
     res.status(404).json({

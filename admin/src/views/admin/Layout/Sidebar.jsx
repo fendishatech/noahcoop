@@ -100,7 +100,7 @@ const Sidebar = ({ open, setOpen }) => {
         </IconButton>
       </Box>
       <Divider />
-      <Link to={"/"} style={{ color: "inherit", textDecoration: "none" }}>
+      <Link to={"/home"} style={{ color: "inherit", textDecoration: "none" }}>
         <ListItem key={"dashboard"} disablePadding>
           <ListItemButton>
             <ListItemIcon>
