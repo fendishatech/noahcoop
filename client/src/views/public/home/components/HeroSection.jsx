@@ -1,54 +1,57 @@
 import { useState, useEffect } from "react";
+import Typewriter from "typewriter-effect";
 
 const HeroSection = () => {
-  const [titles, setTitles] = useState([
-    "Welcome to my website",
-    "I'm a web developer",
-    "Let's build something amazing",
-  ]);
-  const [currentTitleIndex, setCurrentTitleIndex] = useState(0);
-  const [currentTitle, setCurrentTitle] = useState(titles[0]);
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [typingSpeed, setTypingSpeed] = useState(100);
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      const currentIndex = currentTitleIndex % titles.length;
-      const currentTitle = titles[currentIndex];
-
-      if (isDeleting) {
-        setCurrentTitle(currentTitle.substring(0, currentTitle.length - 1));
-      } else {
-        setCurrentTitle(currentTitle.substring(0, currentTitle.length + 1));
-      }
-
-      if (!isDeleting && currentTitle === titles[currentIndex]) {
-        setIsDeleting(true);
-        setTypingSpeed(200);
-      } else if (isDeleting && currentTitle === "") {
-        setIsDeleting(false);
-        setCurrentTitleIndex(currentTitleIndex + 1);
-        setTypingSpeed(100);
-      }
-    }, typingSpeed);
-
-    return () => clearTimeout(timeout);
-  }, [currentTitle, currentTitleIndex, isDeleting, titles, typingSpeed]);
-
   return (
-    <div className="bg-gray-900 text-white py-20">
+    <div className="w-full min-h-screen bg-white py-28">
       <div className="container mx-auto">
-        <h1 className="text-4xl font-bold mb-4">{currentTitle}</h1>
-        <p className="text-lg mb-8">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod
-          justo vel massa consequat, vel bibendum sapien bibendum.
-        </p>
-        <button className="bg-white text-gray-900 py-2 px-4 rounded-full">
-          Learn More
-        </button>
+        <div className="sm:w-1/2 w-full h-screen flex flex-col justify-center items-start">
+          {/* type writing section */}
+          <h1 className="text-7xl font-bold bg-gradient-to-b from-green-500 to-yellow-500 bg-clip-text text-transparent">
+            አሁኑኑ
+            <Typewriter
+              options={{
+                loop: true,
+              }}
+              onInit={(typewriter) => {
+                typewriter
+
+                  .typeString(" የአክሲዮን ባለቤት ይሁኑ ።")
+
+                  .pauseFor(1000)
+                  .deleteAll()
+                  .typeString("ይቆጥቡ ።")
+                  .start()
+
+                  .pauseFor(1000)
+                  .deleteAll()
+                  .typeString("የቤት ቁሳቁስ ያሟሉ ።")
+                  .start();
+              }}
+            />
+          </h1>
+          <p className="text-2xl mb-8 mt-6">
+            ሎረም እፍረት ዶሉር ስት አመት። ሰይፉ አይተው በምስጢር የሚያስፈልጋቸውን የሚያስተማሩ በሽታዎች ያሉትን
+            የሚያስተምሩ የሚገኙ ሰዎች አሉ። ከተማ የሚያስፈልጋቸው ሰዎች በተለይ የሚያስተማሩ በሽታዎች የሚያስተምሩ
+            ናቸው። ኮንሰክቱር አዲስፊክስን ኢሊት።
+          </p>
+          <button className="bg-gradient-to-b from-green-400 via-green-500 to-yellow-500 text-white py-4 px-20 text-3xl">
+            ይመዝገቡ
+          </button>
+        </div>
       </div>
     </div>
   );
 };
 
 export default HeroSection;
+
+import React from "react";
+
+const GradientText = () => {
+  return (
+    <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
+      Hello, world!
+    </h1>
+  );
+};
